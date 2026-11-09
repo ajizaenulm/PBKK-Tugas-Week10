@@ -109,3 +109,6 @@ Aplikasi dapat diakses melalui browser pada: **`http://localhost:8000`**
 ### 4. Perbandingan Hak Akses (Admin vs Staf)
 - **Tampilan Admin:** Menampilkan tombol hapus data (merah) dan menu navigasi *Data Pengguna (RBAC)*.
 - **Tampilan Staf:** Tombol hapus data disembunyikan dari tabel Blade; percobaan request langsung via URL menghasilkan respon *403 Forbidden*.
+
+![Tampilan Hak Akses Staf (Tanpa Tombol Hapus)](docs/screenshots/rbac_staf.png)
+

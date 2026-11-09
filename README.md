@@ -107,8 +107,8 @@ Aplikasi dapat diakses melalui browser pada: **`http://localhost:8000`**
 ![Tabel Data Ide Riset](docs/screenshots/ideas_table.png)
 
 ### 4. Perbandingan Hak Akses (Admin vs Staf)
-- **Tampilan Admin:** Menampilkan tombol hapus data (merah) dan menu navigasi *Data Pengguna (RBAC)*.
-- **Tampilan Staf:** Tombol hapus data disembunyikan dari tabel Blade; percobaan request langsung via URL menghasilkan respon *403 Forbidden*.
+- **Tampilan Admin:** Menampilkan tombol aksi hapus data (ikon tempat sampah pada kolom aksi tabel) serta menu navigasi **Data Pengguna (RBAC)** di sidebar kiri (seperti pada tangkapan layar poin 3).
+- **Tampilan Staf:** Tombol hapus data pada kolom aksi dan menu **Data Pengguna (RBAC)** pada sidebar disembunyikan sepenuhnya dari antarmuka; percobaan akses langsung via URL diblokir (*HTTP 403 Forbidden*).
 
-![Tampilan Hak Akses Staf (Tanpa Tombol Hapus)](docs/screenshots/rbac_staf.png)
+![Tampilan Hak Akses Staf (Menu Sistem & Tombol Hapus Disembunyikan)](docs/screenshots/rbac_staf.png)
 

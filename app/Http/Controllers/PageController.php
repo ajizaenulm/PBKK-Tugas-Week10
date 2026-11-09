@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AgentIdea;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -87,8 +88,23 @@ class PageController extends Controller
             ],
         ];
 
-        $submittedIdeas = session('submitted_ideas', []);
-        $allIdeas = array_merge($submittedIdeas, $initialIdeas);
+        $dbIdeas = AgentIdea::latest()->get()->map(function ($idea) {
+            return [
+                'id' => $idea->code ?? ('IDE-' . str_pad((string) $idea->id, 3, '0', STR_PAD_LEFT)),
+                'author' => $idea->author,
+                'nrp' => $idea->nrp,
+                'title' => $idea->title,
+                'category' => $idea->category,
+                'architecture' => $idea->architecture,
+                'target_user' => $idea->target_user,
+                'priority' => $idea->priority,
+                'description' => $idea->description,
+                'tech_stack' => is_array($idea->tech_stack) ? $idea->tech_stack : [],
+                'created_at' => $idea->created_at ? $idea->created_at->format('Y-m-d H:i') : now()->format('Y-m-d H:i'),
+            ];
+        })->toArray();
+
+        $allIdeas = count($dbIdeas) > 0 ? $dbIdeas : $initialIdeas;
 
         return view('ide_agent', compact('allIdeas', 'mode', 'isDark'));
     }
@@ -121,8 +137,12 @@ class PageController extends Controller
         $priority = $validated['priority'] ?? 'Tinggi';
         $description = $validated['description'] ?? $validated['title'];
 
-        $newIdea = [
-            'id' => 'IDE-' . str_pad((string) rand(10, 999), 3, '0', STR_PAD_LEFT),
+        $lastId = AgentIdea::max('id') ?? 0;
+        $code = 'IDE-' . str_pad((string) ($lastId + 1), 3, '0', STR_PAD_LEFT);
+        $techStack = $validated['tech_stack'] ?? ['Laravel 11', 'Tailwind CSS', 'Monaco Editor'];
+
+        AgentIdea::create([
+            'code' => $code,
             'author' => $validated['author'],
             'nrp' => $validated['nrp'],
             'title' => $validated['title'],
@@ -131,7 +151,21 @@ class PageController extends Controller
             'target_user' => $target_user,
             'priority' => $priority,
             'description' => $description,
-            'tech_stack' => $validated['tech_stack'] ?? ['Laravel 11', 'Tailwind CSS', 'Monaco Editor'],
+            'tech_stack' => $techStack,
+            'status' => 'Review',
+        ]);
+
+        $newIdea = [
+            'id' => $code,
+            'author' => $validated['author'],
+            'nrp' => $validated['nrp'],
+            'title' => $validated['title'],
+            'category' => $category,
+            'architecture' => $architecture,
+            'target_user' => $target_user,
+            'priority' => $priority,
+            'description' => $description,
+            'tech_stack' => $techStack,
             'created_at' => now()->format('Y-m-d H:i'),
         ];
 

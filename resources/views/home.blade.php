@@ -15,7 +15,7 @@
     @endif
 
     <!-- Hero Section: Department of Informatics ITS -->
-    <section class="relative bg-gradient-to-b from-blue-50/50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-16 lg:py-24 overflow-hidden transition-colors duration-300">
+    <section class="relative bg-gradient-to-b from-blue-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-16 lg:py-24 overflow-hidden transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 

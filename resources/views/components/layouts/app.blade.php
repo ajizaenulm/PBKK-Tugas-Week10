@@ -1,6 +1,6 @@
 @props(['title' => null, 'mode' => null])
 
-@include('layouts.app', [
+@include('layouts.portal', [
     'title' => $title,
     'mode' => $mode,
     'slot' => $slot,
